@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<metal:head fill-slot="head_slot">    
+	<script type="text/javascript" src="jquery.ui.core.js"></script>
+	<script type="text/javascript" src="jquery.ui.datepicker.js"></script>
+	
+	<script type="text/javascript">
+	jQuery(function(){
+            jQuery("#datepicker1").datepicker({
+			showOn: 'button',
+			buttonImage: 'calendar.gif',
+			buttonImageOnly: true,
+                        dateFormat: 'yy/mm/dd'
+		});
+            jQuery("#datepicker2").datepicker({
+			showOn: 'button',
+			buttonImage: 'calendar.gif',
+			buttonImageOnly: true,
+                        dateFormat: 'yy/mm/dd'
+		});
+        });
+
+	</script>
+</metal:head>
+
+<metal:css fill-slot="css_slot">
+    <link type="text/css" href="jquery.ui.core.css" rel="stylesheet" />    
+    <link type="text/css" href="jquery.ui.datepicker.css" rel="stylesheet" />  
+    <link type="text/css" href="jquery.ui.theme.css" rel="stylesheet" />  
+</metal:css>
+
+<body>
+     
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main">
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <p>Search Saved Data</p>
+    
+    <div tal:define="errors options/state/getErrors">
+        <p style="color:red;" tal:condition="python: 'isEmpty' in errors" tal:content="python: 'ERROR: ' + errors['isEmpty']"></p>
+    </div>
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+     
+
+
+    <form method="POST" tal:attributes="action string:${here/absolute_url}/${template/id};">
+        <h2>Search by Recipient</h2>
+        First Name:<input type="text" name="recipientFirstName" /><br/>
+        Last Name:<input type="text" name="recipientLastName" />
+        <h2>Search by Investigator</h2>
+        First Name:<input type="text" name="investigatorFirstName" /><br/>
+        Last Name:<input type="text" name="investigatorLastName" />
+        <h2>Search by Date Range</h2>
+        From Date:<input type="text" id="datepicker1" name="fromDate" /><br/>
+        To Date:<input type="text" id="datepicker2" name="toDate" />
+        <h2>Search by Parasite Ordered</h2>
+        <br/>
+        <br/>
+        <input type="radio" name="parasiteType" value="BM" checked="checked"/>&nbsp; B. Malayi<br />
+        <input type="radio" name="parasiteType" value="BP" />&nbsp; B. Pahangi<br />
+        <input type="radio" name="parasiteType" value="DI" />&nbsp; D. Immitis<br />
+        <br/>
+        <input type="submit" name="form.button.submit" value="Submit" />
+        <input type="hidden" name="form.submitted" value="1" />
+    </form>        
+
+    <div tal:replace="structure provider:plone.belowcontentbody" />
+</tal:main-macro>
+</metal:main>
+
+</body>
+</html>

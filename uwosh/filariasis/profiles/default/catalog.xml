@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool"> 
+ <index name="indexByBMalayi" meta_type="FieldIndex">
+  <indexed_attr value="indexByBMalayi"/>
+ </index>
+ <index name="indexByBPahangi" meta_type="FieldIndex">
+  <indexed_attr value="indexByBPahangi"/>
+ </index>
+ <index name="indexByDImmitis" meta_type="FieldIndex">
+  <indexed_attr value="indexByDImmitis"/>
+ </index>
+ <index name="indexByInvestigatorFirstName" meta_type="FieldIndex">
+  <indexed_attr value="indexByInvestigatorFirstName"/>
+ </index>
+ <index name="indexByInvestigatorLastName" meta_type="FieldIndex">
+  <indexed_attr value="indexByInvestigatorLastName"/>
+ </index>
+ <index name="indexByOrderDate" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="indexByRecipientFirstName" meta_type="FieldIndex">
+  <indexed_attr value="indexByRecipientFirstName"/>
+ </index>
+ <index name="indexByRecipientLastName" meta_type="FieldIndex">
+  <indexed_attr value="indexByRecipientLastName"/>
+ </index>
+ <column value="getInfectedAegypti"/>
+ 
+
+ <column value="getOrderDate"/> 
+ <column value="getInvestigatorFirstName"/> 
+ <column value="getInvestigatorLastName"/> 
+ <column value="getRecipientFirstName"/> 
+ <column value="getRecipientLastName"/>
+
+ <column value="getBMAdultMaleWorms"/>
+ <column value="getBMAdultFemaleWorms"/>
+ <column value="getBMCatBlood"/>
+ <column value="getBML4Larvae"/>
+ <column value="getBMInfectiveLarvae"/>
+ <column value="getBMMFFromJirds"/>
+
+ <column value="getBPAdultFemaleWorms"/>
+ <column value="getBPAdultMaleWorms"/>
+ <column value="getBPInfectiveLarvae"/>
+ <column value="getBPL4Larvae"/>
+ <column value="getBPMFFromJirds"/>
+ <column value="getBPDogBlood"/>
+
+ <column value="getDIAdultFemaleWorms"/>
+ <column value="getDIAdultMaleWorms"/>
+ <column value="getDIInfectiveLarvae"/>
+ <column value="getDIDogBlood"/>
+
+</object>

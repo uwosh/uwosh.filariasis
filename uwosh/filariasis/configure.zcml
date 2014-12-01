@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="uwosh.filariasis">
+    
+    <cmf:registerDirectory 
+			name="uwosh.filariasis"
+			directory="skins/uwosh.filariasis" />
+
+    
+    <include package="uwosh.pfg.d2c" />
+
+    <genericsetup:registerProfile
+     name="default"
+     title="uwosh.filariasis"
+     directory="profiles/default"
+     description="Filariasis search product"
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     />
+
+    <include file="patches.zcml"/>
+    <include package="collective.monkeypatcher" />
+    
+    
+</configure>

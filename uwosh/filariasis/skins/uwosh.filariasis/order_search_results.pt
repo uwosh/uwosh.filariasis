@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>  
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main">
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <p>Search Results</p>
+
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+        
+        <p>Number of Results:&nbsp<span tal:content="python: context.REQUEST.get('number_of_results')"></span></p>
+        <table border="1" rules="all">
+        <tr>
+            <th>Order Date</th>
+            <th>Investigator Name</th>
+            <th>Recipient Name</th>
+            <th>Adult Female Worms</th>
+            <th>Adult Male Worms</th>
+            <th>Infective Larvae</th>
+            <th>L4 Larvae</th>
+	    <th>MF from Peritoneal Cavity</th>
+	    <th>Dog/Cat Blood</th>
+	    <th>A.Aegypti</th>
+        </tr>
+        <p tal:repeat="result python:context.REQUEST.get('search_results')">
+        <tr>
+            <td><a tal:attributes="href python: result.getURL()" tal:content="python: result['getOrderDate']"></a></td>
+            <td align="center" tal:content="python: result['getInvestigatorFirstName'] + ' ' + result['getInvestigatorLastName']"></td>
+            <td align="center" tal:content="python: result['getRecipientFirstName'] + ' ' + result['getRecipientLastName']"></td>
+	 
+	    <td align="right" tal:content="python: result[context.REQUEST.get('resultParam1')]">0</td>
+            <td align="right" tal:content="python: result[context.REQUEST.get('resultParam2')]">0</td>
+            <td align="right" tal:content="python: result[context.REQUEST.get('resultParam3')]">0</td>
+	    <td align="center" tal:condition="python: context.REQUEST.get('resultParam4') == ''" tal:content="string:XX">0</td>
+	    <td align="right" tal:condition="python: context.REQUEST.get('resultParam4') != ''" tal:content="python: result[context.REQUEST.get('resultParam4')]">0</td>
+	    <td align="center" tal:condition="python: context.REQUEST.get('resultParam5') == ''" tal:content="string:XX">0</td>
+	    <td align="right" tal:condition="python: context.REQUEST.get('resultParam5') != ''" tal:content="python: result[context.REQUEST.get('resultParam5')]">0</td>
+	    <td align="right" tal:content="python: result[context.REQUEST.get('resultParam6')]">0</td>
+	    <td align="center" tal:content="python: result['getInfectedAegypti']"></td>
+	</tr>	
+        </p>
+	<tr>
+	    <td colspan="3">Totals</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_1')">0</span>&nbsp worms</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_2')">0</span>&nbsp worms</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_3')">0</span>x1000</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_4')">0</span>x100</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_5')">0</span>x1 million</td>
+	    <td align="right"> <span tal:content="python: context.REQUEST.get('column_total_6')">0</span>&nbsp cc's</td>
+	</tr>
+	<tr>
+	    <th colspan="3"></th>
+	    <th>Adult Female Worms</th>
+            <th>Adult Male Worms</th>
+            <th>Infective Larvae</th>
+            <th>L4 Larvae</th>
+	    <th>MF from Peritoneal Cavity</th>
+	    <th>Dog/Cat Blood</th>
+	    <th>A.Aegypti</th>
+	</tr>
+        </table>
+
+    
+    <div tal:replace="structure provider:plone.belowcontentbody" />
+</tal:main-macro>
+</metal:main>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+Changelog
+=========
+1.1.7 - 2011-1-10 (Unreleases)
+------------------
+*Corrects multiple forms with d2c containers in them interfering by
+checking for the existance of form attributes
+
+1.1.6 - 2010-12-09
+------------------
+
+*changed id to correctly match folder name
+
+1.1.5 - 2010-12-08
+------------------
+
+* added install method
+
+* changed metadata IDs to prevent conflict 
+
+1.1.4 - 2010-11-16
+------------------
+
+* flattening images skins folder, adjustment to radio buttons
+
+1.1.3 - 2010-11-04
+------------------
+
+* added missing imports to patches.py
+
+1.1.2 - 2010-11-03
+------------------
+
+* configure.zcml now includes collective.monkeypatcher as a dependency
+
+1.1.1 - 2010-11-03
+-----------------------------
+
+* added patch to CMFFormController.BaseControllerPageTemplate so it
+  doesn't silently fail to submit a form even if form.submitted isn't
+  in the REQUEST
+
+1.0 - Unreleased
+----------------
+
+* Initial release
+

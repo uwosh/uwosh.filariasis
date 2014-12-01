@@ -1,0 +1,72 @@
+Browser tests for uwosh.filariasis
+==========================
+
+Let's import some exceptions we'll need to catch later::
+
+    >>> from AccessControl.unauthorized import Unauthorized
+    >>> from mechanize._mechanize import LinkNotFoundError
+    >>> from ClientForm import ItemNotFoundError
+    
+To create a signup sheet we need to login in as a manager and create several
+different content types.
+
+We start a test browser::
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+    >>> browser.addHeader('Accept-Language', 'en-US')
+    >>> self.portal.error_log._ignored_exceptions = ('Unauthorized',)
+
+We log in::
+
+    >>> browser.open(portal.absolute_url() + '/login_form')
+    >>> browser.getLink('Log in').click()
+    >>> browser.getControl(name='__ac_name').value = 'test_user_1_'
+    >>> browser.getControl(name='__ac_password').value = 'secret'
+    >>> browser.getControl(name='submit').click()
+    >>> 'You are now logged in' in browser.contents
+    True
+    
+And make ourselves manager::
+
+    >>> self.setRoles(['Manager'])
+
+Lets go to the form now and fill out a test user::
+
+    >>> from DateTime import DateTime; theDate = DateTime().Date()
+    >>> browser.open(portal.absolute_url() + '/parasite-resources/requisitionUpdate/filarial-research-materials-parasite-division-requisition-form')
+    >>> browser.getControl(name='recipient-first-name').value = 'Marcus'
+    >>> browser.getControl(name='recipient-last-name').value = 'DuFrane'
+    >>> browser.getControl(name='principal-investigator-first-name').value = 'James'
+    >>> browser.getControl(name='principal-investigator-last-name').value = 'Jones'
+    >>> browser.getControl(name='email').value = 'marcusdufrane@gmail.com'
+    >>> browser.getControl(name='address').value = '123 Four St.'
+    >>> browser.getControl(name='city').value = 'Fond du Lac'
+    >>> browser.getControl(name='us-state-canadian-province-1').displayValue = ['WI Wisconsin']
+    >>> browser.getControl(name='zip-code').value = '54935'
+    >>> browser.getControl(name='country').displayValue = ['United States']
+    >>> browser.getControl(name='brugia-malayi').displayValue = ['Live']
+    >>> browser.getControl(name='microfilaremic-cat-blood-5cc-per-shipment-limit-1-shipment-quarter').value = '10'
+    >>> browser.getControl('Other').selected = True
+    >>> browser.getControl(label='Submit').click()
+    >>> 'Thank You' in browser.contents
+    True
+    >>> 'Thanks for your input.' in browser.contents
+    True
+    
+And now lets make sure that it is saved in the Order Forms Folder::
+
+    >>> browser.open(portal.absolute_url() + '/parasite-resources/requisitionUpdate/filarial-research-materials-parasite-division-requisition-form/order-forms')
+    >>> theDate in browser.contents
+    True
+
+Looks like it works great...right? Now check a search::
+   
+    >>> browser.open(portal.absolute_url() + '/parasite-resources/requisitionUpdate/order_search_form')
+    >>> browser.getControl(name='fromDate').value = theDate
+    >>> browser.getControl(name='toDate').value = theDate
+    >>> browser.getControl(label='Submit').click()
+    >>> theDate in browser.contents
+    True
+
+Should be wonderful::

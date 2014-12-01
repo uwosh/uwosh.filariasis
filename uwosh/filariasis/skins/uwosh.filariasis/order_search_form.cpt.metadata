@@ -1,0 +1,6 @@
+[validators]
+validators = formNotEmpty
+
+[actions]
+action.success = traverse_to:string:searchScript 
+action.failure = traverse_to:string:order_search_form
